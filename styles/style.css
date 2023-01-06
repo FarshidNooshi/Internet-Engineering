@@ -1,205 +1,201 @@
 /* the main section of the page with full screen size */
-main {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    overflow: auto;
+main { /* main is the tag name */
+    position: relative; /* to position the background image */
+    height: 100vh; /* to make the main section full screen */
+    display: flex; /* to make the content of the main section centered */
+    overflow: auto; /* to make the content of the main section scrollable */
 }
 
-html {
-    background-image: url("../assets/octcat.jpeg");
-    background-size: cover;
-    font-family: 'Roboto', sans-serif, serif, monospace, cursive;
-    /*color: whitesmoke;*/
+html { /* html is the tag name */
+    background-image: url("../assets/octcat.jpeg"); /* to set the background image */
+    background-size: cover; /* to make the background image cover the whole page */
+    font-family: 'Roboto', sans-serif, serif, monospace, cursive; /* to set the font family */
 }
 
-.box {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    backdrop-filter: blur(10px);
-    transform: translate3d(0, 0, 0);
-    box-shadow: 0 0 5px #ccc;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin: 5em;
-    padding: 1em;
-    width: 100%;
-    overflow: scroll;
+.box { /* box is the class name */
+    border: 1px solid #ccc; /* to set the border of the box */
+    border-radius: 5px; /* to set the border radius of the box */
+    backdrop-filter: blur(10px); /* to set the blur effect of the box */
+    transform: translate3d(0, 0, 0); /* to set the 3d effect of the box */
+    box-shadow: 0 0 5px #ccc; /* to set the shadow effect of the box */
+    background-color: rgba(255, 255, 255, 0.5); /* to set the background color of the box */
+    margin: 5em; /* to set the margin of the box for all 4 edges */
+    padding: 1em; /* to set the padding of the box for all 4 edges */
+    width: 100%; /* to make the box full width */
+    overflow: scroll; /* to make the content of the box scrollable */
 }
 
-.row {
-    display: flex;
-    align-items: center;
-    max-height: 30em;
-    height: auto;
-    flex-direction: row;
+.row { /* row is the class name */
+    display: flex; /* to make the content of the row centered */
+    align-items: center; /* to make the content of the row vertically centered */
+    max-height: 30em; /* to set the max height of the row */
+    height: auto; /* to make the row auto height */
+    flex-direction: row; /* to set the direction of the flex */
 }
 
-.profile {
-    display: flex;
-    /*flex-direction: column;*/
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    width: 100%;
-    height: 100%;
+.profile { /* profile is the class name */
+    display: flex; /* to make the content of the profile centered */
+    align-items: center; /* to make the content of the profile vertically centered */
+    justify-content: center; /* to make the content of the profile horizontally centered */
+    margin: 0 0 0 0; /* to set the margin of the profile for all 4 edges */
+    padding: 0 0 0 0; /* to set the padding of the profile for all 4 edges */
+    width: 100%; /* to make the profile full width */
+    height: 100%; /* to make the profile full height */
 }
 
-.container {
-    width: 100%;
-    margin: 100px auto 0;
+.container { /* container is the class name */
+    width: 100%; /* to make the container full width */
+    margin: 100px auto 0; /* to set the margin of the container for all 4 edges */
 }
 
-#profile-image {
-    width: 10em;
-    height: 10em;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 5px #ccc;
-    margin: 4em 4em 4em 1em;
-    float: left;
-    padding: 0 0 0 0;
+#profile-image { /* profile-image is the id name */
+    width: 10em; /* to set the width of the profile image */
+    height: 10em; /* to set the height of the profile image */
+    border-radius: 50%; /* to set the border radius of the profile image */
+    border: 1px solid #ccc; /* to set the border of the profile image */
+    box-shadow: 0 0 5px #ccc; /* to set the shadow effect of the profile image */
+    margin: 4em 4em 4em 1em; /* to set the margin of the profile image for all 4 edges */
+    float: left; /* to set the float of the profile image */
+    padding: 0 0 0 0; /* to set the padding of the profile image for all 4 edges */
 }
 
-#profile-image:hover {
-    cursor: pointer;
+#profile-image:hover { /* profile-image is the id name */
+    cursor: pointer; /* to set the cursor of the profile image when hovered */
 }
 
-.column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.column { /* column is the class name */
+    display: flex; /* to make the content of the column centered */
+    flex-direction: column; /* to set the direction of the flex to column */
+    justify-content: center; /* to make the content of the column horizontally centered */
+    align-items: center; /* to make the content of the column vertically centered */
 }
 
-.search-box {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: flex-end;
-    justify-content: space-evenly;
+.search-box { /* search-box is the class name */
+    width: 100%; /* to make the search box full width */
+    height: auto; /* to make the search box auto height */
+    display: flex; /* to make the content of the search box centered */
+    align-items: center; /* to make the content of the search box vertically centered */
+    flex-direction: column; /* to set the direction of the flex to column */
+    flex-wrap: nowrap; /* to set the flex wrap to nowrap */
+    align-content: flex-end; /* to set the align content to end of the flex */
+    justify-content: space-evenly; /* to set the justify content to space evenly */
 }
 
-input:placeholder-shown {
-    color: #ccc;
-    text-overflow: ellipsis;
+input:placeholder-shown { /* input is the tag name and selecting the placeholder shown */
+    color: #ccc; /* to set the color of the placeholder text */
+    text-overflow: ellipsis; /* to set the text overflow of the placeholder text */
 }
 
-#message {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: flex-end;
-    justify-content: space-evenly;
-    color: red;
+#message { /* message is the id name */
+    width: 100%; /* to make the message full width */
+    height: 100%; /* to make the message full height */
+    display: flex; /* to make the content of the message centered */
+    align-items: center; /* to make the content of the message vertically centered */
+    flex-direction: column; /* to set the direction of the flex to column */
+    flex-wrap: nowrap; /* to set the wrap of the flex to nowrap */
+    align-content: flex-end; /* to set the align content to end of the flex */
+    justify-content: space-evenly; /* to set the justify content to space evenly */
+    color: red; /* to set the color of the message */
 }
 
-#username {
-    margin: 0.5em;
-    width: auto;
-    text-align: center;
+#username { /* username is the id name */
+    margin: 0.5em; /* to set the margin of the username for all 4 edges */
+    width: auto; /* to make the username auto width */
+    text-align: center; /* to set the text alignment of the username */
 }
 
-#search-btn {
-    width: 30%;
-    height: 1.5em;
-    border: none;
-    border-radius: 5px;
-    background-color: darkslateblue;
-    color: #fff;
-    font-size: 1em;
-    font-weight: 300;
-    margin: 0.5em;
-    cursor: pointer;
+#search-btn { /* search-btn is the id name */
+    width: 30%; /* to set the width of the search button */
+    height: 1.5em; /* to set the height of the search button */
+    border: none; /* to remove the border of the search button */
+    border-radius: 5px; /* to set the border radius of the search button */
+    background-color: darkslateblue; /* to set the background color of the search button */
+    color: #fff; /* to set the color of the search button */
+    font-size: 1em; /* to set the font size of the search button */
+    font-weight: 300; /* to set the font weight of the search button */
+    margin: 0.5em; /* to set the margin of the search button for all 4 edges */
+    cursor: pointer; /* to set the cursor of the search button when hovered */
 }
 
-.result-box {
-    width: 100%;
-    display: grid;
+.result-box { /* result-box is the class name */
+    width: 100%; /* to make the result box full width */
+    display: grid; /* to make the content of the result box in a grid */
 }
 
-.profile-info {
-    display: flex;
-    flex-wrap: wrap;
+.profile-info { /* profile-info is the class name */
+    display: flex; /* to make the content of the profile info centered */
+    flex-wrap: wrap; /* to set the wrap of the flex to wrap */
 }
 
-.top-result-box {
-    height: 10em;
+.top-result-box { /* top-result-box is the class name */
+    height: 10em; /* to set the height of the top result box */
 }
 
-.tag {
-    flex: 50%;
-    /*padding: 0.5rem 1rem 0.5rem 0;*/
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.tag { /* tag is the class name */
+    flex: 50%; /* to set the flex of the tag to 50% */
+    display: flex; /* to make the content of the tag centered */
+    align-items: center; /* to make the content of the tag vertically centered */
+    gap: 0.5rem; /* to set the gap between the content of the tag */
 }
 
-.header h1 {
-    margin: 0;
+.header h1 { /* selecting the h1 tag inside the header tag */
+    margin: 0; /* to remove the margin of the header h1 */
 }
 
 /* text input */
-input[type=text] {
-    width: auto;
-    height: 1.5em;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 3px solid #ccc;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
+input[type=text] { /* to set the type of the input to text while styling */
+    width: auto; /* to make the text input auto width */
+    height: 1.5em; /* to set the height of the text input */
+    padding: 12px 20px; /* to set the padding of the text input for all 4 edges */
+    margin: 8px 0; /* to set the margin of the text input for all 4 edges */
+    box-sizing: border-box; /* to set the box sizing of the text input */
+    border: 3px solid #ccc; /* to set the border of the text input */
+    -webkit-transition: 0.5s; /* to set the transition of the text input */
+    outline: none; /* to remove the outline of the text input */
 }
 
-input[type=text]:focus {
-    border: 3px solid #13136f;
+input[type=text]:focus { /* to set the type of the input to text while styling when focused */
+    border: 3px solid #13136f; /* to set the border of the text input when focused */
 }
 
-#username-label {
-    margin: 0.5em;
-    width: auto;
-    text-align: center;
-    padding-right: 0.4em;
+#username-label { /* to set the id of the username label while styling */
+    margin: 0.5em; /* to set the margin of the username label for all 4 edges */
+    width: auto; /* to make the username label auto width */
+    text-align: center; /* to set the text alignment of the username label */
+    padding-right: 0.4em; /* to set the padding of the username label for the right edge */
 }
 
 #footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-    color: #fff;
-    text-align: center;
-    padding: 0.5em;
+    position: absolute; /* to set the position of the footer */
+    bottom: 0; /* to set the bottom of the footer */
+    width: 100%; /* to make the footer full width */
+    height: 2.5rem; /* to set the height of the footer */
+    color: #fff; /* to set the color of the footer */
+    text-align: center; /* to set the text alignment of the footer */
+    padding: 0.5em; /* to set the padding of the footer for all 4 edges */
 }
 
 a {
-    color: #009471;
-    text-decoration: none;
+    color: #009471; /* to set the color of the anchor tag */
+    text-decoration: none; /* to remove the underline of the anchor tag */
 }
 
 /* mouse over link */
-a:hover {
-    color: #1ae300;
-    transition: 0.35s;
+a:hover { /* to set the anchor tag while styling when hovered */
+    color: #1ae300; /* to set the color of the anchor tag when hovered */
+    transition: 0.35s; /* to set the transition of the anchor tag when hovered */
 }
 
 /* selected link */
-a:active {
-    color: red;
+a:active { /* to set the anchor tag while styling when active */
+    color: red; /* to set the color of the anchor tag when active */
 }
 
-button:hover {
-    background-color: rgba(113, 4, 4, 0.62) !important;
-    transition: 0.75s;
+button:hover { /* to set the button while styling when hovered */
+    background-color: rgba(113, 4, 4, 0.62) !important; /* to set the background color of the button when hovered and !important to override the background color of the button */
+    transition: 0.75s; /* to set the transition of the button when hovered */
 }
 
-b {
-    font-weight: 600;
+b { /* to set the b tag while styling */
+    font-weight: 600; /* to set the font weight of the b tag */
 }

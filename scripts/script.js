@@ -10,6 +10,7 @@ function init() {
 }
 
 function getImportantFields(s) {
+    // get the important fields from the user's data and return them in a dictionary
     let fields = {};
     fields["name"] = s.split('"name":')[1].split(',')[0];
     fields["login"] = s.split('"login":')[1].split(',')[0];
@@ -42,6 +43,7 @@ function getImportantFields(s) {
 }
 
 function setCookie(username, s, number) {
+    // set the cookie with the username and the data
     let fields = getImportantFields(s);
     let d = new Date();
     d.setTime(d.getTime() + (number * 24 * 60 * 60 * 1000));
@@ -65,6 +67,7 @@ function checkIfDataExists(userdata) {
 }
 
 function showProfile(userdata) {
+    // show the user's data in the profile div
     if (!checkIfDataExists(userdata))
         return;
     if (userdata.bio) {
@@ -164,6 +167,7 @@ async function searchProfile() {
 }
 
 function showMessage(error) {
+    // show the error message in the message paragraph
     document.getElementById("message").innerHTML = "Error: " + error;
     document.getElementById("message").style.display = "flex";
 }
@@ -214,6 +218,7 @@ async function getUsersFavoriteLanguage(username, data) {
 }
 
 function setStorageType(storageType) {
+    // set the useLocalStorage variable to true if the user wants to use localStorage
     if (storageType === "local-storage") {
         useLocalStorage = true;
         document.cookie = "expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
@@ -241,6 +246,7 @@ function getCookie(name) {
     }
     let fields = JSON.parse(str);
     for (let field in fields) {
+        // remove the quotes from the string values
         let value = fields[field];
         if (value.startsWith('"')) {
             value = value.substring(1, value.length - 1);
