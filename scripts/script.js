@@ -149,7 +149,7 @@ async function searchProfile() {
                     // get the user's favorite language
                     data.favoriteLanguage = await getUsersFavoriteLanguage(username, data);
                     // update the cookie with the user's favorite language
-                    setCookie(username, JSON.stringify(data), 1);
+                    setCookie(username, JSON.stringify(data), 3/(24 * 60));
                     // show the user's data in the console
                     console.log(data);
                 }).catch(error => {
