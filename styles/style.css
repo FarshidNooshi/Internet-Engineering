@@ -10,7 +10,7 @@ html {
     background-image: url("../assets/octcat.jpeg");
     background-size: cover;
     font-family: 'Roboto', sans-serif, serif, monospace, cursive;
-    color: whitesmoke;
+    /*color: whitesmoke;*/
 }
 
 .box {
@@ -19,6 +19,7 @@ html {
     backdrop-filter: blur(10px);
     transform: translate3d(0, 0, 0);
     box-shadow: 0 0 5px #ccc;
+    background-color: rgba(255, 255, 255, 0.5);
     margin: 5em;
     padding: 1em;
     width: 100%;
@@ -110,7 +111,7 @@ input:placeholder-shown {
     height: 1.5em;
     border: none;
     border-radius: 5px;
-    background-color: #ccc;
+    background-color: darkslateblue;
     color: #fff;
     font-size: 1em;
     font-weight: 300;
@@ -195,7 +196,7 @@ a:active {
 }
 
 button:hover {
-    background-color: #009471 !important;
+    background-color: rgba(113, 4, 4, 0.62) !important;
     transition: 0.75s;
 }
 
