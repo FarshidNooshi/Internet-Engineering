@@ -1,29 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>GitHub Profile Summarizer</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="scripts/index.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="maintainer" content="Farshid Nooshi"/>
+    <meta name="year" content="2023"/>
+    <title>
+        GitHub Profile Summarizer
+    </title>
+    <!-- Importing stylesheets -->
+    <link rel="stylesheet" href="styles/style.css"/>
 </head>
 <body>
-    <h1>GitHub Profile Summarizer</h1>
-    <form action="/summarize" method="post">
-        <label for="username">GitHub Username</label>
-        <input type="text" name="username" id="username">
-        <input type="submit" value="Summarize">
-    </form>
-    <div id="profile-summary">
-        <h2>Profile Summary</h2>
-        <img src="" alt="User Profile Image" id="profile-image">
-        <h3 id="profile-name"></h3>
-        <p id="profile-bio"></p>
-        <p id="profile-blog"></p>
-        <p id="profile-location"></p>
-        <p id="profile-followers"></p>
-        <p id="profile-following"></p>
-        <p id="profile-favorite-language"></p>
+<main>
+    <div class="container">
+        <h1>GitHub Profile Summarizer</h1>
+        <!-- box to show the result -->
+        <!-- box for searching profile username -->
+        <div class="search-box">
+            <input type="text"
+                   id="username"
+                   placeholder="Enter GitHub Username"
+                   autocomplete="off"
+            />
+            <button id="search-btn"
+                    onclick="searchProfile()">
+                Search
+            </button>
+        </div>
     </div>
-
+</main>
+<footer id="footer">
+    <div>
+        <div>
+            <div>
+                <div>
+                    <p>&copy 2023. All Rights Reserved. Design and Development by
+                        <a href="https://www.linkedin.com/in/farshidnooshi/">
+                            <span class="label">Farshid Nooshi</span>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Importing scripts -->
+<script src="scripts/script.js"></script>
 </body>
 </html>
