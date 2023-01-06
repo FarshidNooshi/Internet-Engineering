@@ -1,0 +1,64 @@
+/* the main section of the page with full screen size */
+main {
+    position: relative;
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    overflow: auto;
+}
+
+.box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+    overflow: scroll;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 20rem;
+}
+
+.container {
+    width: 100%;
+    margin: 100px auto 0;
+}
+
+#profile-image {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+    margin: 4em;
+    float: left;
+    padding: 0 0 0 0;
+}
+
+#profile-image:hover {
+    cursor: pointer;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+}

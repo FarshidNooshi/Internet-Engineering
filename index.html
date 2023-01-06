@@ -9,62 +9,67 @@
         GitHub Profile Summarizer
     </title>
     <!-- Importing stylesheets -->
+    <link rel="stylesheet" href="styles/colors.css"/>
     <link rel="stylesheet" href="styles/style.css"/>
 </head>
 <body>
-<main>
+<main class="column">
     <div class="container">
-        <h1>GitHub Profile Summarizer</h1>
         <!-- box to show the result -->
         <!-- box for searching profile username -->
-        <div class="search-box">
-            <input type="text"
-                   id="username"
-                   placeholder="Enter GitHub Username"
-                   autocomplete="off"
-            />
-            <button id="search-btn"
-                    onclick="searchProfile()">
-                Search
-            </button>
-            <!-- a text field to show messages to user -->
-            <div id="message" class="message">
-                <!-- message will be shown here -->
-                <p id="message-text"></p>
+        <div class="row">
+            <!-- box to show the result -->
+            <div class="box result-box" id="result-box">
+                <div class="profile row">
+                    <img id="profile-image" src="assets/user-solid.svg" alt="Profile Image"/>
+                    <div class="profile-info">
+                        <h2 id="name">Name</h2>
+                        <p id="login"><b>Id</b></p>
+                        <p id="followers"><b>Followers</b></p>
+                        <p id="following"><b>Following</b></p>
+                        <p id="favoriteLanguage"><b>Favorite Language</b></p>
+                        <p id="company"><b>Company</b></p>
+                        <p id="location"><b>Location</b></p>
+                        <p id="bio"><b>Bio</b></p>
+                        <p id="blog"><b>Blog</b></p>
+                    </div>
+                </div>
             </div>
-            <!-- box to ask the user if he wants to use local storage or cookie -->
-            <div class="storage-box">
-                <input type="radio"
-                       id="local-storage"
-                       name="storage"
-                       value="local-storage"
-                       checked
-                />
-                <label for="local-storage">Local Storage</label>
-                <input type="radio"
-                       id="cookie"
-                       name="storage"
-                       value="cookie"
-                       onclick="clearLocalStorage()"
-                />
-                <label for="cookie">Cookie</label>
-            </div>
-        </div>
-        <!-- box to show the result -->
-        <div class="result-box" id="result-box">
-            <div class="profile">
-                <img id="profile-image" src="" alt="Profile Image"/>
-                <!-- profile image, name, login, followers, following, favorite language, company, location, bio, blog -->
-                <div class="profile-info">
-                    <h2 id="name"></h2>
-                    <p id="login"></p>
-                    <p id="followers"></p>
-                    <p id="following"></p>
-                    <p id="favoriteLanguage"></p>
-                    <p id="company"></p>
-                    <p id="location"></p>
-                    <p id="bio"></p>
-                    <p id="blog"></p>
+            <div class="box search-box column">
+                <label for="username">
+                    <input type="text"
+                           id="username"
+                           placeholder="Enter GitHub Username"
+                           autocomplete="off"
+                    />
+                </label>
+                <button id="search-btn"
+                        onclick="searchProfile()">
+                    Search
+                </button>
+
+                <!-- a text field to show messages to user -->
+                <div id="message" class="message">
+                    <!-- message will be shown here -->
+                    <p id="message-text" hidden="hidden"></p>
+                </div>
+                <!-- box to ask the user if he wants to use local storage or cookie -->
+                <div class="storage-box">
+                    <input type="radio"
+                           id="local-storage"
+                           name="storage"
+                           value="local-storage"
+                           checked
+                           onclick="setStorageType('local-storage')"
+                    />
+                    <label for="local-storage">Local Storage</label>
+                    <input type="radio"
+                           id="cookie"
+                           name="storage"
+                           value="cookie"
+                           onclick="setStorageType('cookie')"
+                    />
+                    <label for="cookie">Cookie</label>
                 </div>
             </div>
         </div>

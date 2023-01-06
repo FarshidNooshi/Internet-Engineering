@@ -1,4 +1,11 @@
 let useLocalStorage = true;
+let unknownMessage = "-";
+window.onload = init;
+// init function
+function init() {
+    // hide the message paragraph
+    document.getElementById("message").hidden = true;
+}
 
 function getImportantFields(s) {
     let fields = {};
@@ -14,7 +21,7 @@ function getImportantFields(s) {
     fields["bio"] = s.split('"bio":')[1].split(',')[0];
     fields["blog"] = s.split('"blog":')[1].split(',')[0];
     return fields;
-    
+
 }
 
 function setCookie(username, s, number) {
@@ -29,26 +36,35 @@ function setCookie(username, s, number) {
 }
 
 function showProfile(userdata) {
+    userdata.bio = userdata.bio.replace(/\\r\\n/g, "<br>");
     // show the user's data in the result box
-document.getElementById("result-box").innerHTML = `
+    console.log(userdata);
+    document.getElementById("result-box").innerHTML = `
     <img id="profile-image" src="${userdata.avatar_url}" alt="Profile Image">
-                <!-- name, login, followers, following, favorite language, company, location, bio, blog -->
                 <div id="profile-info">
                     <h1 id="name">${userdata.name}</h1>
                     <p id="login">${userdata.login}</p>
-                    <p id="followers">Followers: ${userdata.followers}</p>
-                    <p id="following">Following: ${userdata.following}</p>
-                    <p id="favorite-language">Favorite Language: ${userdata.favoriteLanguage}</p>
-                    <p id="company">Company: ${userdata.company}</p>
-                    <p id="location">Location: ${userdata.location}</p>
-                    <p id="bio">Bio: ${userdata.bio}</p>
-                    <p id="blog">Blog: ${userdata.blog}</p>
+                    <p id="followers"><b>Followers:</b> ${userdata.followers}</p>
+                    <p id="following"><b>Following:</b> ${userdata.following}</p>
+                    <p id="favorite-language"><b>Favorite Language:</b> ${userdata.favoriteLanguage}</p>
+                    <p id="company"><b>Company:</b> ${userdata.company}</p>
+                    <p id="location"><b>Location:</b> ${userdata.location}</p>
+                    <p id="bio"><b>Bio:</b> ${userdata.bio}</p>
+                    <a id="blog" href="${userdata.blog}">${userdata.blog}</a>
                 </div>
 `
-    
+    // if a field is empty, hide it
+    for (let key in userdata) {
+        // if document contains an element with the id of the key and the value is empty, show the unknown message instead
+        if (document.getElementById(key) && (userdata[key] === "" || userdata[key] === null)) {
+            document.getElementById(key).innerHTML = `
+            <b>${key.charAt(0).toUpperCase() + key.slice(1)}:</b> ${unknownMessage}`
+        }
+    }
+
 }
 
-function searchProfile() {
+async function searchProfile() {
     // a variable for the username in the form
     let username = document.getElementById("username").value;
     let userdata = {};
@@ -57,60 +73,62 @@ function searchProfile() {
         // if it is empty, show a message in the message paragraph
         document.getElementById("message").innerHTML = "Please enter a username";
     } else if (useLocalStorage) {
+        document.getElementById("message").hidden = true;
         // check if the username is in the localStorage
         if (localStorage.getItem(username) === null) {
             // fetch user data from the GitHub API
-            fetch("https://api.github.com/users/" + username)
+            await fetch("https://api.github.com/users/" + username)
                 .then(response => response.json())
-                .then(data => {
+                .then(async data => {
                     // get the user's favorite language
                     // update the localStorage with the user's favorite language
-                    data.favoriteLanguage = getUsersFavoriteLanguage(username, data);
+                    data.favoriteLanguage = await getUsersFavoriteLanguage(username, data);
                     localStorage.setItem(username, JSON.stringify(data));
-                    // show the user's data in the console
-                    console.log(data);
-                    userdata = data;
-                });
-        } else {
-            // check if we should use the data from the localStorage or the cookie from the radio button
-            // get the data from the localStorage
-            userdata = JSON.parse(localStorage.getItem(username));
-            // show the data in the console
-            console.log(userdata);
+                }).catch(error => {
+                    //show an error message if there is an error in the message paragraph
+                    document.getElementById("message").innerHTML = "Error: " + error;
+                })
         }
+        // check if we should use the data from the localStorage or the cookie from the radio button
+        // get the data from the localStorage
+        userdata = JSON.parse(localStorage.getItem(username));
+        // show the data in the console
+        console.log(userdata);
     } else {
+        document.getElementById("message").hidden = true;
         // check if the username is in the cookie
         if (getCookie(username) === "") {
             // fetch user data from the GitHub API
-            fetch("https://api.github.com/users/" + username)
+            await fetch("https://api.github.com/users/" + username)
                 .then(response => response.json())
-                .then(data => {
+                .then(async data => {
                     // get the user's favorite language
-                    let favoriteLanguage = getUsersFavoriteLanguage(username, data);
+                    data.favoriteLanguage = await getUsersFavoriteLanguage(username, data);
                     // update the cookie with the user's favorite language
-                    console.log(favoriteLanguage);
-                    data.favoriteLanguage = favoriteLanguage;
                     setCookie(username, JSON.stringify(data), 1);
                     // show the user's data in the console
                     console.log(data);
-                    userdata = data;
                 });
-        } else {
-            // check if we should use the data from the localStorage or the cookie from the radio button
-            // get the data from the cookie
-            userdata = JSON.parse(getCookie(username));
-            // show the data in the console
-            console.log(userdata);
         }
+        // check if we should use the data from the localStorage or the cookie from the radio button
+        // get the data from the cookie
+        userdata = JSON.parse(getCookie(username));
+        // show the data in the console
+        console.log(userdata);
     }
     showProfile(userdata);
-    
+
 }
 
-function getUsersFavoriteLanguage(username, data) {
-    // get the user's last 5 repos from the GitHub API
-    let favoriteLanguage = "";
-    fetch(data.repos_url).then(response => response.json()).then(repos => {
+function showMessage(error) {
+    document.getElementById("message").innerHTML = "Error: " + error;
+    document.getElementById("message").hidden = false;
+}
+
+async function getUsersFavoriteLanguage(username, data) {
+    data.favoriteLanguage = "";
+    // get the user's last 5 repos from the GitHub API and update the favoriteLanguage variable
+    await fetch(data.repos_url).then(response => response.json()).then(repos => {
         // sort the repos by the time they were last updated
         repos.sort((a, b) => {
             return new Date(b.updated_at) - new Date(a.updated_at);
@@ -134,18 +152,23 @@ function getUsersFavoriteLanguage(username, data) {
         let sortedLanguages = Object.keys(languages).sort((a, b) => {
             return languages[b] - languages[a];
         });
-        // get the most frequently used language
-        favoriteLanguage = sortedLanguages[0];
-        // show the languages in the console
-        console.log(favoriteLanguage);
+        // set the favoriteLanguage variable from outer scope to the most frequently used language
+        data.favoriteLanguage = sortedLanguages[0];
+    }).catch(error => {
+        //show an error message if there is an error in the message paragraph
+        showMessage(error);
     });
-    return favoriteLanguage;
+    return data.favoriteLanguage;
 }
 
-function clearLocalStorage() {
-    // clear the localStorage
-    localStorage.clear();
-    useLocalStorage = false;
+function setStorageType(storageType) {
+    if (storageType === "local-storage") {
+        useLocalStorage = true;
+        document.cookie = "expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    } else {
+        useLocalStorage = false;
+        localStorage.clear();
+    }
 }
 
 function getCookie(name) {
