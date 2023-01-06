@@ -16,7 +16,7 @@ html {
 .box {
     border: 1px solid #ccc;
     border-radius: 5px;
-    filter: blur(10px);
+    backdrop-filter: blur(10px);
     transform: translate3d(0, 0, 0);
     box-shadow: 0 0 5px #ccc;
     margin: 5em;
