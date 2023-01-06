@@ -27,6 +27,46 @@
                     onclick="searchProfile()">
                 Search
             </button>
+            <!-- a text field to show messages to user -->
+            <div id="message" class="message">
+                <!-- message will be shown here -->
+                <p id="message-text"></p>
+            </div>
+            <!-- box to ask the user if he wants to use local storage or cookie -->
+            <div class="storage-box">
+                <input type="radio"
+                       id="local-storage"
+                       name="storage"
+                       value="local-storage"
+                       checked
+                />
+                <label for="local-storage">Local Storage</label>
+                <input type="radio"
+                       id="cookie"
+                       name="storage"
+                       value="cookie"
+                       onclick="clearLocalStorage()"
+                />
+                <label for="cookie">Cookie</label>
+            </div>
+        </div>
+        <!-- box to show the result -->
+        <div class="result-box" id="result-box">
+            <div class="profile">
+                <img id="profile-image" src="" alt="Profile Image"/>
+                <!-- profile image, name, login, followers, following, favorite language, company, location, bio, blog -->
+                <div class="profile-info">
+                    <h2 id="name"></h2>
+                    <p id="login"></p>
+                    <p id="followers"></p>
+                    <p id="following"></p>
+                    <p id="favoriteLanguage"></p>
+                    <p id="company"></p>
+                    <p id="location"></p>
+                    <p id="bio"></p>
+                    <p id="blog"></p>
+                </div>
+            </div>
         </div>
     </div>
 </main>
