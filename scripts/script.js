@@ -187,6 +187,10 @@ async function getUsersFavoriteLanguage(username, data) {
         });
         // set the favoriteLanguage variable from outer scope to the most frequently used language
         data.favoriteLanguage = sortedLanguages[0];
+        // somehow GitHub replies null to some languages
+        if (data.favoriteLanguage === "null") {
+            data.favoriteLanguage = sortedLanguages.length > 1 ? sortedLanguages[1] : "No data found";
+        }
     }).catch(error => {
         //show an error message if there is an error in the message paragraph
         showMessage();
