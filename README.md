@@ -4,3 +4,8 @@
 
 # Internet-Engineering
 IE Midterm project
+
+To view the website please visit [here](https://farshidnooshi.github.io/Internet-Engineering/)
+
+## screenshots
+you can view them in img folder
