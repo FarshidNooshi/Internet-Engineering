@@ -1,6 +1,7 @@
 let useLocalStorage = true;
 let unknownMessage = "-";
 window.onload = init;
+
 // init function
 function init() {
     // hide the message paragraph
@@ -36,8 +37,9 @@ function setCookie(username, s, number) {
 }
 
 function showProfile(userdata) {
-    userdata.bio = userdata.bio.replace(/\\r\\n/g, "<br>");
-    // show the user's data in the result box
+    if (userdata.bio) {
+        userdata.bio = userdata.bio.replace(/\\r\\n/g, "<br>");
+    }
     console.log(userdata);
     document.getElementById("result-box").innerHTML = `
     <img id="profile-image" src="${userdata.avatar_url}" alt="Profile Image">
@@ -87,7 +89,7 @@ async function searchProfile() {
                 }).catch(error => {
                     //show an error message if there is an error in the message paragraph
                     document.getElementById("message").innerHTML = "Error: " + error;
-                })
+                });
         }
         // check if we should use the data from the localStorage or the cookie from the radio button
         // get the data from the localStorage
@@ -97,7 +99,8 @@ async function searchProfile() {
     } else {
         document.getElementById("message").hidden = true;
         // check if the username is in the cookie
-        if (getCookie(username) === "") {
+        if (getCookie(username).includes("undefined")) {
+            
             // fetch user data from the GitHub API
             await fetch("https://api.github.com/users/" + username)
                 .then(response => response.json())
@@ -108,6 +111,8 @@ async function searchProfile() {
                     setCookie(username, JSON.stringify(data), 1);
                     // show the user's data in the console
                     console.log(data);
+                }).catch(error => {
+                    document.getElementById("message").innerHTML = "Error: " + error;
                 });
         }
         // check if we should use the data from the localStorage or the cookie from the radio button
@@ -178,7 +183,8 @@ function getCookie(name) {
     let fields = {};
     for (const element of cookieArray) {
         let cookieName = element.split("=")[0];
-        if (cookieName.trim().startsWith(name)) {
+        //ignore the spaces and the case of the cookie name
+        if (cookieName.trim().toLowerCase().startsWith(name.toLowerCase())) {
             fields[cookieName.split(".")[1]] = element.split("=")[1];
         }
     }

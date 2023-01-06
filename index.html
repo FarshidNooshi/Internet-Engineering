@@ -25,22 +25,23 @@
                     <div class="profile-info">
                         <h2 id="name">Name</h2>
                         <p id="login"><b>Id</b></p>
+                        <p id="location"><b>Location</b></p>
+                        <p id="blog"><b>Blog</b></p>
+                        <p id="favoriteLanguage"><b>Favorite Language</b></p>
                         <p id="followers"><b>Followers</b></p>
                         <p id="following"><b>Following</b></p>
-                        <p id="favoriteLanguage"><b>Favorite Language</b></p>
                         <p id="company"><b>Company</b></p>
-                        <p id="location"><b>Location</b></p>
                         <p id="bio"><b>Bio</b></p>
-                        <p id="blog"><b>Blog</b></p>
                     </div>
                 </div>
             </div>
             <div class="box search-box column">
-                <label for="username">
+                <label for="username" id="username-label">
                     <input type="text"
                            id="username"
                            placeholder="Enter GitHub Username"
                            autocomplete="off"
+                           spellcheck="false"
                     />
                 </label>
                 <button id="search-btn"
