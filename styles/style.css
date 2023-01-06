@@ -7,7 +7,7 @@ main {
 }
 
 html {
-    background-image: url("assets/octcat.jpeg");
+    background-image: url("../assets/octcat.jpeg");
     background-size: cover;
     font-family: 'Roboto', sans-serif, serif, monospace, cursive;
     color: whitesmoke;
