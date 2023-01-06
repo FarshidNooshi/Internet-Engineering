@@ -22,6 +22,21 @@ function getImportantFields(s) {
     fields["location"] = s.split('"location":')[1].split(',')[0];
     fields["bio"] = s.split('"bio":')[1].split(',')[0];
     fields["blog"] = s.split('"blog":')[1].split(',')[0];
+    for (let key in fields) {
+        fields[key] = fields[key].replace(/"/g, "");
+        if (fields[key].startsWith('"')) {
+            fields[key] = fields[key].substring(1, fields[key].length - 1);
+        }
+        if (fields[key].endsWith('"')) {
+            fields[key] = fields[key].substring(0, fields[key].length - 1);
+        }
+        if (fields[key].startsWith("{")) {
+            fields[key] = fields[key].substring(1, fields[key].length - 1);
+        }
+        if (fields[key].endsWith("}")) {
+            fields[key] = fields[key].substring(0, fields[key].length - 1);
+        }
+    }
     return fields;
 
 }
@@ -32,9 +47,8 @@ function setCookie(username, s, number) {
     d.setTime(d.getTime() + (number * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     // set the cookie for each field in the dictionary
-    for (let key in fields) {
-        document.cookie = username + "." + key + "=" + fields[key] + ";" + expires + ";path=/";
-    }
+    let json = JSON.stringify(fields);
+    document.cookie = `${username}=${json};${expires};path=/`;
 }
 
 function checkIfDataExists(userdata) {
@@ -51,7 +65,7 @@ function checkIfDataExists(userdata) {
 }
 
 function showProfile(userdata) {
-    if (!checkIfDataExists(userdata)) 
+    if (!checkIfDataExists(userdata))
         return;
     if (userdata.bio) {
         userdata.bio = userdata.bio.replace(/\\r\\n/g, "<br>");
@@ -122,7 +136,8 @@ async function searchProfile() {
         console.log(userdata);
     } else {
         // check if the username is in the cookie
-        if (getCookie(username).includes("undefined")) {
+        if (getCookie(username) === '{}') {
+            document.cookie = `${username}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
             
             // fetch user data from the GitHub API
             await fetch("https://api.github.com/users/" + username)
@@ -211,14 +226,35 @@ function setStorageType(storageType) {
 function getCookie(name) {
     // get the cookie with the given name
     let cookie = document.cookie;
-    let cookieArray = cookie.split(";");
-    let fields = {};
-    for (const element of cookieArray) {
-        let cookieName = element.split("=")[0];
-        //ignore the spaces and the case of the cookie name
-        if (cookieName.trim().toLowerCase().startsWith(name.toLowerCase())) {
-            fields[cookieName.split(".")[1]] = element.split("=")[1];
+    if (cookie.length === 0) {
+        return "{}";
+    }
+    // get substr starting from the index of the name
+    let cookieStart = cookie.indexOf(name + "=");
+    let cookieArray = cookie.substring(cookieStart).split("=");
+    if (cookieArray[0] !== name) {
+        return "{}";
+    }
+    let str = '';
+    for (let i = 1; i < cookieArray.length; i++) {
+        str += cookieArray[i];
+    }
+    let fields = JSON.parse(str);
+    for (let field in fields) {
+        let value = fields[field];
+        if (value.startsWith('"')) {
+            value = value.substring(1, value.length - 1);
         }
+        if (value.endsWith('"')) {
+            value = value.substring(0, value.length - 1);
+        }
+        if (value.startsWith("{")) {
+            value = value.substring(1, value.length - 1);
+        }
+        if (value.endsWith("}")) {
+            value = value.substring(0, value.length - 1);
+        }
+        fields[field] = value;
     }
     return JSON.stringify(fields);
 }
