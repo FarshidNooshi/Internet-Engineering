@@ -52,7 +52,7 @@ function showProfile(userdata) {
                     <p id="company"><b>Company:</b> ${userdata.company}</p>
                     <p id="location"><b>Location:</b> ${userdata.location}</p>
                     <p id="bio"><b>Bio:</b> ${userdata.bio}</p>
-                    <a id="blog" href="${userdata.blog}">${userdata.blog}</a>
+                    <b>Blog:</b> <a id="blog" href="${userdata.blog}">${userdata.blog}</a>
                 </div>
 `
     // if a field is empty, hide it

@@ -2,7 +2,6 @@
 main {
     position: relative;
     height: 100vh;
-    /*background-color: var(--background-color);*/
     display: flex;
     overflow: auto;
 }
@@ -27,8 +26,9 @@ html {
 
 .row {
     display: flex;
-    align-items: flex-end;
-    max-height: 20rem;
+    align-items: center;
+    max-height: 30em;
+    height: auto;
     flex-direction: row;
 }
 
@@ -61,7 +61,7 @@ html {
 
 .search-box {
     width: 100%;
-    height: 20rem;
+    height: auto;
     display: flex;
     align-items: center;
     /* flex: 19; */
@@ -71,13 +71,15 @@ html {
     justify-content: space-evenly;
 }
 
+input:placeholder-shown{
+    color: #ccc;
+    text-overflow: ellipsis;
+}
+
 #username {
-    /*font-size: 1.5em;*/
-    font-weight: 300;
     margin: 0.5em;
-    width: 100%;
+    width: auto;
     text-align: center;
-    /*padding: 0 0 0 0;*/
 }
 
 #search-btn {
@@ -95,8 +97,6 @@ html {
 
 .result-box {
     width: 100%;
-    height: 20rem;
-
 }
 
 .header h1 {
@@ -105,12 +105,12 @@ html {
 
 /* text input */
 input[type=text] {
-    width: 100%;
+    width: auto;
     height: 1.5em;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 3px solid #ccc;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
