@@ -1,5 +1,6 @@
 let useLocalStorage = true;
 let unknownMessage = "-";
+let networkErrorMessages = ["Network Error", "Failed to fetch", "Request failed with status code 404"];
 window.onload = init;
 
 // init function
@@ -36,25 +37,48 @@ function setCookie(username, s, number) {
     }
 }
 
+function checkIfDataExists(userdata) {
+    // if the user data is empty, show the message
+    if (Object.keys(userdata).length === 0) {
+        showMessage("No data found");
+        return false;
+    }
+    if (userdata.message === "Not Found") {
+        showMessage("No data found");
+        return false;
+    }
+    return true;
+}
+
 function showProfile(userdata) {
+    if (!checkIfDataExists(userdata)) 
+        return;
     if (userdata.bio) {
         userdata.bio = userdata.bio.replace(/\\r\\n/g, "<br>");
     }
-    console.log(userdata);
+    document.getElementById("message").style.display = "none";
     document.getElementById("result-box").innerHTML = `
-    <img id="profile-image" src="${userdata.avatar_url}" alt="Profile Image">
-                <div id="profile-info">
-                    <h1 id="name">${userdata.name}</h1>
-                    <p id="login">${userdata.login}</p>
-                    <p id="followers"><b>Followers:</b> ${userdata.followers}</p>
-                    <p id="following"><b>Following:</b> ${userdata.following}</p>
-                    <p id="favorite-language"><b>Favorite Language:</b> ${userdata.favoriteLanguage}</p>
-                    <p id="company"><b>Company:</b> ${userdata.company}</p>
-                    <p id="location"><b>Location:</b> ${userdata.location}</p>
-                    <p id="bio"><b>Bio:</b> ${userdata.bio}</p>
-                    <b>Blog:</b> <a id="blog" href="${userdata.blog}">${userdata.blog}</a>
+    <div class="row top-result-box">
+        <img id="profile-image" src=${userdata.avatar_url} alt="Profile Image">
+        <h2 id="name">${userdata.name}</h2>
+    </div>
+                 <div class="profile row profile-info">
+                    <p id="login" class="tag"><b>Id:</b> ${userdata.login}</p>
+                    <p id="location" class="tag"><b>Location:</b> ${userdata.location}</p>
+                    <p id="followers" class="tag"><b>Followers:</b> ${userdata.followers}</p>
+                    <p id="following" class="tag"><b>Following:</b> ${userdata.following}</p>
+                    <p id="company" class="tag"><b>Company:</b> ${userdata.company}</p>
+                    <p id="favoriteLanguage" class="tag"><b>Favorite Language:</b> ${userdata.favoriteLanguage}</p>
+                </div>
+                <div class="profile-bottom">
+                    <p id="blog" class="tag"><b>Blog:</b> <a href="${userdata.blog}" target="_blank">${userdata.blog}</a></p>
+                    <p id="bio" class="tag"><b>Bio:</b> ${userdata.bio}</p>
                 </div>
 `
+    // if no image
+    if (userdata.avatar_url === null || userdata.avatar_url === "null" || userdata.avatar_url === "") {
+        document.getElementById("profile-image").src = "assets/user-solid.svg";
+    }
     // if a field is empty, hide it
     for (let key in userdata) {
         // if document contains an element with the id of the key and the value is empty, show the unknown message instead
@@ -74,8 +98,8 @@ async function searchProfile() {
     if (username === "") {
         // if it is empty, show a message in the message paragraph
         document.getElementById("message").innerHTML = "Please enter a username";
+        return;
     } else if (useLocalStorage) {
-        document.getElementById("message").hidden = true;
         // check if the username is in the localStorage
         if (localStorage.getItem(username) === null) {
             // fetch user data from the GitHub API
@@ -88,7 +112,7 @@ async function searchProfile() {
                     localStorage.setItem(username, JSON.stringify(data));
                 }).catch(error => {
                     //show an error message if there is an error in the message paragraph
-                    document.getElementById("message").innerHTML = "Error: " + error;
+                    showMessage(error.message);
                 });
         }
         // check if we should use the data from the localStorage or the cookie from the radio button
@@ -97,7 +121,6 @@ async function searchProfile() {
         // show the data in the console
         console.log(userdata);
     } else {
-        document.getElementById("message").hidden = true;
         // check if the username is in the cookie
         if (getCookie(username).includes("undefined")) {
             
@@ -112,7 +135,7 @@ async function searchProfile() {
                     // show the user's data in the console
                     console.log(data);
                 }).catch(error => {
-                    document.getElementById("message").innerHTML = "Error: " + error;
+                    showMessage("Error: " + error.message);
                 });
         }
         // check if we should use the data from the localStorage or the cookie from the radio button
@@ -127,11 +150,11 @@ async function searchProfile() {
 
 function showMessage(error) {
     document.getElementById("message").innerHTML = "Error: " + error;
-    document.getElementById("message").hidden = false;
+    document.getElementById("message").style.display = "flex";
 }
 
 async function getUsersFavoriteLanguage(username, data) {
-    data.favoriteLanguage = "";
+    data.favoriteLanguage = "No data found";
     // get the user's last 5 repos from the GitHub API and update the favoriteLanguage variable
     await fetch(data.repos_url).then(response => response.json()).then(repos => {
         // sort the repos by the time they were last updated
@@ -140,8 +163,13 @@ async function getUsersFavoriteLanguage(username, data) {
         });
         // create an array to store the languages
         let languages = {};
+        // check if the user has repo
+        if (repos.length === 0) {
+            data.favoriteLanguage = "No repos";
+            return;
+        }
         // loop through the repos and get the most frequently used language in the last 5 repos
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < Math.min(5, repos.length); i++) {
             // get the language of the current repo
             let language = repos[i].language;
             // check if the language is in the languages array
@@ -161,7 +189,7 @@ async function getUsersFavoriteLanguage(username, data) {
         data.favoriteLanguage = sortedLanguages[0];
     }).catch(error => {
         //show an error message if there is an error in the message paragraph
-        showMessage(error);
+        showMessage();
     });
     return data.favoriteLanguage;
 }

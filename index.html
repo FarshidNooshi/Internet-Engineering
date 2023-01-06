@@ -9,7 +9,6 @@
         GitHub Profile Summarizer
     </title>
     <!-- Importing stylesheets -->
-    <link rel="stylesheet" href="styles/colors.css"/>
     <link rel="stylesheet" href="styles/style.css"/>
 </head>
 <body>
@@ -20,19 +19,21 @@
         <div class="row">
             <!-- box to show the result -->
             <div class="box result-box" id="result-box">
-                <div class="profile row">
+                <div class="row top-result-box">
                     <img id="profile-image" src="assets/user-solid.svg" alt="Profile Image"/>
-                    <div class="profile-info">
-                        <h2 id="name">Name</h2>
-                        <p id="login"><b>Id</b></p>
-                        <p id="location"><b>Location</b></p>
-                        <p id="blog"><b>Blog</b></p>
-                        <p id="favoriteLanguage"><b>Favorite Language</b></p>
-                        <p id="followers"><b>Followers</b></p>
-                        <p id="following"><b>Following</b></p>
-                        <p id="company"><b>Company</b></p>
-                        <p id="bio"><b>Bio</b></p>
-                    </div>
+                    <h2 id="name">Name</h2>
+                </div>
+                <div class="profile profile-info">
+                    <p id="login" class="tag"><b>Id</b></p>
+                    <p id="location" class="tag"><b>Location</b></p>
+                    <p id="followers" class="tag"><b>Followers</b></p>
+                    <p id="following" class="tag"><b>Following</b></p>
+                    <p id="company" class="tag"><b>Company</b></p>
+                    <p id="favoriteLanguage" class="tag"><b>Favorite Language</b></p>
+                </div>
+                <div class="profile-bottom">
+                    <p id="blog" class="tag"><b>Blog:</b> <a href="#" target="_blank"></a></p>
+                    <p id="bio" class="tag"><b>Bio:</b></p>
                 </div>
             </div>
             <div class="box search-box column">

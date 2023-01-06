@@ -19,7 +19,7 @@ html {
     backdrop-filter: blur(10px);
     box-shadow: 0 0 5px #ccc;
     margin: 5em;
-    padding: 0 0 0 0;
+    padding: 1em;
     width: 100%;
     overflow: scroll;
 }
@@ -32,14 +32,25 @@ html {
     flex-direction: row;
 }
 
+.profile {
+    display: flex;
+    /*flex-direction: column;*/
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+    height: 100%;
+}
+
 .container {
     width: 100%;
     margin: 100px auto 0;
 }
 
 #profile-image {
-    width: 5em;
-    height: 5em;
+    width: 10em;
+    height: 6em;
     border-radius: 50%;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px #ccc;
@@ -64,16 +75,27 @@ html {
     height: auto;
     display: flex;
     align-items: center;
-    /* flex: 19; */
     flex-direction: column;
     flex-wrap: nowrap;
     align-content: flex-end;
     justify-content: space-evenly;
 }
 
-input:placeholder-shown{
+input:placeholder-shown {
     color: #ccc;
     text-overflow: ellipsis;
+}
+
+#message {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-end;
+    justify-content: space-evenly;
+    color: red;
 }
 
 #username {
@@ -97,6 +119,24 @@ input:placeholder-shown{
 
 .result-box {
     width: 100%;
+    display: grid;
+}
+
+.profile-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.top-result-box {
+    height: 10em;
+}
+
+.tag {
+    flex: 50%;
+    /*padding: 0.5rem 1rem 0.5rem 0;*/
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .header h1 {
@@ -150,4 +190,8 @@ a:hover {
 button:hover {
     background-color: #009471 !important;
     transition: 0.75s;
+}
+
+b {
+    font-weight: 600;
 }
