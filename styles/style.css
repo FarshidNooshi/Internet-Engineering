@@ -2,14 +2,21 @@
 main {
     position: relative;
     height: 100vh;
-    background-color: var(--background-color);
+    /*background-color: var(--background-color);*/
     display: flex;
     overflow: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    background-image: url("/assets/octcat.jpeg");
+    background-size: cover;
 }
 
 .box {
     border: 1px solid #ccc;
     border-radius: 5px;
+    backdrop-filter: blur(10px);
     box-shadow: 0 0 5px #ccc;
     margin: 5em;
     padding: 0 0 0 0;
